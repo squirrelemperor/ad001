@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- Handler -->
+    <bean name="/hello.action" class="com.j1824.spring.InfoHandler"/>
+
+    <!-- 处理映射器 -->
+    <!--
+    从名字上得到  bean name & url 进行一个映射关系
+    Checks name and aliases of the given bean for URLs, starting with "/"
+
+    实现 HandlerMapping 接口
+    -->
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+
+    <!-- 处理器适配器 -->
+    <!--
+    实现 HandlerAdapter 接口
+
+    @Override
+	public boolean supports(Object handler) {
+		return (handler instanceof Controller);
+	} // 说明Handler对象是Controller类型
+
+    @FunctionalInterface
+    public interface Controller {
+	    ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    }
+    -->
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+
+
+    <!-- 视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+
+
+</beans>
